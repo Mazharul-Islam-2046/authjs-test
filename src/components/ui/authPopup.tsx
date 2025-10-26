@@ -18,13 +18,19 @@ export function AuthPopup() {
 
   async function handleSubmit(formData: FormData) {
     "use server"
-    console.log("Submitting form...")
+    const email = formData.get("email");
+    const password = formData.get("password");
     
+    console.log("🟠 handleSubmit - Form data:", { email, password });
+    console.log("🟠 handleSubmit - Calling signIn...");
+    
+    // signIn() throws NEXT_REDIRECT to perform the redirect
+    // This is normal behavior, not an error!
     await signIn("credentials", {
       redirect: true,
       redirectTo: "/",
-      email: formData.get("email"),
-      password: formData.get("password"),
+      email: email,
+      password: password,
     })
   }
 
